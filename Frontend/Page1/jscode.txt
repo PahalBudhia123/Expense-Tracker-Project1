@@ -1,0 +1,104 @@
+This is tha javascript code without backend when we use localstorage
+
+
+
+const form= document.getElementById('expense-form');
+const expenseList =document.getElementById('expense-list');
+const balanceEl = document.getElementById('balance');
+const nameInput = document.getElementById('expense-name');
+const amountInput=document.getElementById('expense-amount');
+let expenses = [];// store all the expense objects
+let editingID = null;
+//element.addEventListener('eventType', callbackFunction);
+// is element par jab ye event hoga tab yeh kamm krna hai 
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+  const name = document.getElementById('expense-name').value;
+  const amount = parseFloat(document.getElementById('expense-amount').value);
+
+ if(!name || amount<=0){
+    alert("Enter valid name and amount");
+    return;
+ }
+ if(editingID){
+    expenses = expenses.map((exp)=> exp.id==editingID ? {...exp,name,amount}:exp);
+    editingID=null;
+    form.querySelector("button").textContent = "Add Expense";
+ }
+ else{
+
+ 
+ const expense ={
+    id: Date.now(),
+    name,
+    amount
+ };
+ expenses.push(expense);
+}
+ renderExpenses();
+ form.reset();
+});
+// render-display
+function renderExpenses(){
+    expenseList.innerHTML=" ";
+    let total =0;
+
+expenses.forEach((exp) => {
+    total += exp.amount;
+    const li = document.createElement('li');
+    li.innerHTML = ` 
+      ${exp.name} - ₹${exp.amount}
+      <div>
+      <button onclick ="deleteExpense(${exp.id})">❌</button>
+      <button onclick ="editExpense(${exp.id})">✏️</button>
+      </div>
+     `;
+     expenseList.appendChild(li);
+});
+balanceEl.textContent = `Total: ₹${total} `;
+}
+function deleteExpense(id){
+    expenses = expenses.filter((exp) => exp.id!=id);
+    renderExpenses();
+}
+function editExpense(id){
+  const expense = expenses.find((exp) => exp.id==id);
+  if(expense){
+    nameInput.value=expense.name;
+    amountInput.value=expense.name;
+    editingID= id;
+    form.querySelector("button").textContent = "Update expense";
+  }
+}
+const themeToggle = document.getElementById('theme-toggle');
+// change = click
+themeToggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', themeToggle.checked ? 'dark' : 'light');
+});
+window.addEventListener('DOMContentLoaded',() =>{
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme == 'dark'){
+    document.body.classList.add('dark');
+    document.getElementById('theme-toggle').checked=true;
+  }
+});
+// filter js
+function filterExpenses(type){
+  const now = new Date();
+  let filtered =[];
+  if(type=='weekly'){
+    const weekAgo = new Date(now);
+    weekAgo.setDate(now.getDate()-7);
+    filtered = expenses.filter(exp => new Date(exp.date) >= weekAgo);
+  }else if (type === 'monthly') {
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(now.getMonth() - 1);
+    filtered = expenses.filter(exp => new Date(exp.date) >= monthAgo);
+  } else {
+    filtered = expenses;
+  }
+
+  renderExpenses(filtered);
+}

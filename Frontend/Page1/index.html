@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Expense tracker</title>
+        <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+
+         <div class="header-box">
+            <div class="ai-assistant">
+                <button id="aiBtn">🤖 Ai Assistant</button>
+            </div>
+
+            <div class="signup-link">
+                <a href="Loginpage/HTML.html">Sign Up</a>
+              </div>
+           
+             <div class="user-menu">
+            <div class="user-avatar" id="userAvatar">U</div>
+              <div class="dropdown" id="userDropdown">
+             <a href="profile.html">Profile</a>
+             <a href="Loginpage/HTML.html" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+          </div>
+
+        <div class="app">
+            <div class="card">
+                <h2>💸 EXPENSE TRACKER</h2>
+                <div class="toggle-wrapper">
+                 <label class="switch">
+                 <input type="checkbox" id="theme-toggle" />
+                   <span class="slider"></span>
+                 </label>
+                </div>
+                <div class="balance">
+                    <span>Total balance</span>
+                    <h3 id="balance">₹0</h3>
+                </div>
+                <form id="expense-form">
+                    <label> Name of the expense:</label>
+                    <input type="text" id="expense-name" placeholder="Expense title" required>
+                    <label>Amount: </label>
+                    <input type="number" id="expense-amount" placeholder="Amount (₹)" required />
+                    <label>Date:</label>
+                    <input type="date" id="expense-date" required>
+                     <button type="submit">➕ Add Expense</button>
+                </form>
+                <div class="filter-buttons">
+                    <button onclick ="filterExpenses('weekly')">Weekly</button>
+                    <button onclick ="filterExpenses('monthly')">Monthly</button>
+                    <button onclick ="filterExpenses('all')">All</button>
+                </div><br>
+                
+              <!-- <ul id="expense-list" class="expense-list"></ul>-->
+            </div>
+            <div class="right-div">
+                <div class="top-pannel">
+                    <label>Monthly Budget</label>
+                    <input type="number" id="monthlyBudget" placeholder="₹10">
+                    <label>Monthly remaining</label>
+                    <input type="number" id="monthlyremaining" >
+                     <button id="saveBudget">Save</button>
+
+                </div>
+                <div class="bottom-pannel">
+                    <div class="expense-list-section">
+                        <h3>Expenses list</h3>
+                        <ul id="expense-list" class="expense-list"></ul>
+                    </div>
+
+                    <div class="chart-section">
+                        <canvas id="expenseChart" width="400px" height="400px"></canvas>
+                    </div>
+                </div>
+            </div>
+           
+            <div id="chatPannel" class="chat-panel">
+                <div class="chat-header">
+                    <h3>Chat with AI Assistant</h3>
+                    <button id="closeChat">❌</button>
+                </div>
+                <div class="chat-body" id="chatBody">
+                    <p> Hello! How Can I help you?</p>
+
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type your message here..." />
+                    <button id="sendBtn"><i class="bx bx-paper-plane"></i></button>
+                </div>
+
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
