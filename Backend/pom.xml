@@ -98,14 +98,18 @@
 		</dependency>
 
 
+			<dependency>
+		<groupId>com.squareup.okhttp3</groupId>
+		<artifactId>okhttp</artifactId>
+		<version>4.12.0</version>
+	</dependency>
 
-		 <!-- Google Gemini AI API -->
-		<dependency>
-			<groupId>com.google.ai.generativelanguage</groupId>
-			<artifactId>google-ai-generativelanguage</artifactId>
-			<version>0.4.0</version>
-		</dependency>
-		
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+	</dependency>
+			
+			
 		<!-- HTTP Client for Gemini API -->
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
